@@ -38,6 +38,86 @@
             #endregion
 
             #endregion
+            #region Part 02 — Practical
+
+            Driver driver = new Driver(1,"Ahmed Shaker","01117248622");
+
+            DeliveryCenter center = new DeliveryCenter();
+
+            center.Driver = driver;
+
+
+            StandardShipment standard = new StandardShipment("SH001","Laptop",3,80,new DeliveryAddress("Cairo", "Tahrir", 10));
+
+
+            ExpressShipment express = new ExpressShipment("SH002","Phone",2,60,new DeliveryAddress("Cairo", "Nasr St", 1),30);
+
+
+            InternationalShipment international =new InternationalShipment("SH003","Television",8,120,new DeliveryAddress("Cairo", "Nile St", 18),"Germany",100);
+
+            center.AddShipment(standard);
+            center.AddShipment(express);
+            center.AddShipment(international);
+
+            Console.WriteLine("==========================================");
+            Console.WriteLine("Delivery Center");
+            Console.WriteLine("==========================================");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"Driver : {center.Driver.FullName}");
+
+            Console.WriteLine();
+
+            center.PrintAllShipments();
+
+
+            Console.WriteLine("==========================================");
+            Console.WriteLine("Printing Using DeliveryHelper...");
+            Console.WriteLine("==========================================");
+
+            DeliveryHelper.PrintShipmentDetails(standard);
+            DeliveryHelper.PrintShipmentDetails(express);
+            DeliveryHelper.PrintShipmentDetails(international);
+
+
+            Console.WriteLine("==========================================");
+            Console.WriteLine("Updating Weight...");
+            Console.WriteLine();
+
+            Console.WriteLine($"Original Weight : {standard.Weight} KG");
+
+            standard.UpdateWeight(5);
+
+            Console.WriteLine($"Updated Weight : {standard.Weight} KG");
+
+            standard.UpdateWeight(5, 0.5m);
+
+            Console.WriteLine($"Updated Weight After Packing : {standard.Weight} KG");
+
+            Console.WriteLine("==========================================");
+            Console.WriteLine("Printing Using Shipment[]...");
+            Console.WriteLine("==========================================");
+
+            Shipment[] mixedShipments ={standard,express,international};
+
+            foreach (Shipment shipment in mixedShipments)
+            {
+                shipment.PrintShipment();
+            }
+
+
+            Console.WriteLine("==========================================");
+
+            // Sealed Class demonstration
+            CompletedShipment completed =new CompletedShipment("SH004","Documents",1,50,new DeliveryAddress("Cairo", "Tahrir Street", 5));
+
+            // Sealed Method demonstration
+            PriorityInternationalShipment priority =new PriorityInternationalShipment("SH005","Passport",1,100,new DeliveryAddress("Cairo", "Airport Road", 15),"Germany",50);
+
+            priority.GenerateCustomsReport();
+
+            #endregion
         }
     }
 }
